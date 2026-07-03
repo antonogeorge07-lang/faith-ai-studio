@@ -18,15 +18,13 @@ CREATE TABLE IF NOT EXISTS client_stores (
 CREATE TABLE IF NOT EXISTS unified_inventory (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     store_id UUID REFERENCES client_stores(id) ON DELETE CASCADE,
-    external_variant_id TEXT NOT NULL UNIQUE, -- Tracks specific Square Variant IDs or Shopify SKU IDs
+    external_variant_id TEXT NOT NULL UNIQUE, 
     sku TEXT,
     product_name TEXT NOT NULL,
     variant_name TEXT,
-    price_cents INTEGER NOT NULL,            -- Prevents floating point calculation rounding errors
+    price_cents INTEGER NOT NULL,            
     stock_quantity INTEGER NOT NULL DEFAULT 0,
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 3. UNLOCKED REAL-TIME BROADCAST CHANNELS
--- Instructs PostgreSQL to fire ultra-fast websocket change pulses
-ALTER PUBLICATION supabase_realtime ADD TABLE unified_inventory;
+-- Realtime connection already established on previous migrations - skipping duplicate call
