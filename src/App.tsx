@@ -15,11 +15,11 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          {/* Root Domain points directly to your master WAT Sandbox Index layout */}
+          {/* Main homepage routes directly to your master WAT Sandbox layout */}
           <Route path="/" element={<Index />} />
-          {/* Sub-path /studio links to your secondary business operational hub */}
+          {/* Sub-path /studio handles your secondary operational data node */}
           <Route path="/studio" element={<Business />} />
-          {/* Catch-all fallback path prevents routing drift breaks */}
+          {/* Catch-all fallback pattern handles path navigation safely */}
           <Route path="*" element={<Index />} />
         </Routes>
       </BrowserRouter>
