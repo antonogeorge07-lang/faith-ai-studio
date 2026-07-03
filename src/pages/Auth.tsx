@@ -79,7 +79,7 @@ export default function Auth() {
           Back to site
         </a>
 
-        <div className="glass-card rounded-3xl p-8 border border-white/10">
+        <div className="glass-effect rounded-3xl p-8">
           <h1 className="text-2xl font-bold text-primary-foreground mb-2">
             {mode === 'signup' ? 'Create Owner Account' : 'Owner Login'}
           </h1>

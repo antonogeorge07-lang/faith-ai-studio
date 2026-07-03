@@ -8,6 +8,8 @@ import { toast } from 'sonner'
 import { Navbar } from '@/components/Navbar'
 import { LogoBar } from '@/components/LogoBar'
 import { Seo } from '@/components/Seo'
+import { AILeadFlow } from '@/components/AILeadFlow'
+import { RoadmapBuilder } from '@/components/RoadmapBuilder'
 import { supabase } from '@/integrations/supabase/client'
 import { useLanguage } from '@/i18n/LanguageContext'
 import { createRequest } from '@/lib/createRequest'
@@ -25,9 +27,23 @@ export default function Business() {
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState<{ portalUrl: string; email: string } | null>(null)
 
+  const openRoadmap = () => {
+    setSuccess(null)
+    setTimeout(() => document.querySelector('#roadmap')?.scrollIntoView({ behavior: 'smooth' }), 50)
+  }
+
   const openIntake = () => {
     setSuccess(null)
     setTimeout(() => document.querySelector('#intake')?.scrollIntoView({ behavior: 'smooth' }), 50)
+  }
+
+  const handleRoadmapContinue = (summary: { business: string; pain: string; leads: string; message: string }) => {
+    setForm((f) => ({
+      ...f,
+      business: f.business || (summary.business === 'Something else' ? '' : summary.business),
+      message: summary.message,
+    }))
+    openIntake()
   }
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -136,16 +152,16 @@ export default function Business() {
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <button
-                onClick={openIntake}
+                onClick={openRoadmap}
                 className="btn-electric px-8 py-4 rounded-2xl text-lg font-semibold inline-flex items-center gap-2"
               >
                 {t('biz.ctaQuote')} <ArrowRight className="w-5 h-5" />
               </button>
               <button
-                onClick={() => document.querySelector('#intake')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => document.querySelector('#how')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-8 py-4 rounded-2xl text-lg font-semibold border-2 border-primary text-foreground hover:bg-primary hover:text-primary-foreground transition-all"
               >
-                {t('nav.contact')}
+                {t('biz.ctaSee')}
               </button>
             </motion.div>
 
@@ -172,6 +188,10 @@ export default function Business() {
       </section>
 
       <LogoBar label="Trusted by founders and small businesses we have shipped for" />
+
+      <AILeadFlow />
+
+      <RoadmapBuilder onContinue={handleRoadmapContinue} />
 
       {/* INTAKE */}
       <section id="intake" className="py-24 bg-primary">

@@ -3,12 +3,15 @@
 import { useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { Helmet } from 'react-helmet-async'
 import { Navbar } from '@/components/Navbar'
 import { LogoBar } from '@/components/LogoBar'
 import { Pillars } from '@/components/Pillars'
 import { MVPShowcase } from '@/components/MVPShowcase'
 import { Contact } from '@/components/Contact'
 import { Seo } from '@/components/Seo'
+
+type Faq = { q: string; a: string }
 
 type Persona = {
   slug: string
@@ -17,6 +20,7 @@ type Persona = {
   highlight: string
   subtext: string
   pains: string[]
+  faqs: Faq[]
 }
 
 const PERSONAS: Record<string, Persona> = {
@@ -31,6 +35,12 @@ const PERSONAS: Record<string, Persona> = {
       'Need investor-ready proof, fast',
       'Cannot afford a 6-month build cycle',
     ],
+    faqs: [
+      { q: 'How fast can you ship an MVP?', a: 'Most founder MVPs go live in 2 to 4 weeks. We scope on a 20-minute call, then ship in focused weekly sprints.' },
+      { q: 'What does it cost?', a: 'We start with a free roadmap. After that, projects are priced per scope so you know the total before we begin.' },
+      { q: 'Do I own the code?', a: 'Yes. You own the full codebase, the database, and every account from day one.' },
+      { q: 'Can it scale after launch?', a: 'Yes. We build on production-grade tooling (React, Supabase, edge functions) so the MVP scales as you grow.' },
+    ],
   },
   'small-business': {
     slug: 'small-business',
@@ -42,6 +52,12 @@ const PERSONAS: Record<string, Persona> = {
       'Booking and admin live in WhatsApp',
       'Existing site is slow on mobile',
       'No time to manage agencies',
+    ],
+    faqs: [
+      { q: 'Will my site work well on mobile?', a: 'Every site we ship is mobile-first and scores in the green on Core Web Vitals.' },
+      { q: 'Can clients book and pay online?', a: 'Yes. We wire up online booking, calendar sync, and payments (Stripe or local equivalent) on launch.' },
+      { q: 'Do I need to manage the site myself?', a: 'No. You get a calm admin dashboard for content, bookings, and messages. We handle the tech.' },
+      { q: 'How long does it take?', a: 'A typical small-business site goes live in 5 to 10 days from kickoff.' },
     ],
   },
   creators: {
@@ -55,6 +71,12 @@ const PERSONAS: Record<string, Persona> = {
       'Email list lives in Notion',
       'No way to sell products directly',
     ],
+    faqs: [
+      { q: 'Can I sell products and digital downloads?', a: 'Yes. We build a lightweight shop with Stripe checkout, downloads, and order emails baked in.' },
+      { q: 'Will it replace my Linktree and newsletter tool?', a: 'It can. You get a link-in-bio, newsletter capture, and shop on one domain you own.' },
+      { q: 'Do I need to know code?', a: 'No. You get a simple editor for posts, products, and pages.' },
+      { q: 'Can I migrate my existing audience?', a: 'Yes. We import your subscribers and past content during setup.' },
+    ],
   },
 }
 
@@ -63,6 +85,24 @@ export default function PersonaPage() {
   const data = persona ? PERSONAS[persona] : null
   if (!data) return <Navigate to="/" replace />
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: data.faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://invictusfaith.studio/' },
+      { '@type': 'ListItem', position: 2, name: data.audience, item: `https://invictusfaith.studio/for/${data.slug}` },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Seo
@@ -70,7 +110,12 @@ export default function PersonaPage() {
         description={data.subtext}
         path={`/for/${data.slug}`}
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
+      </Helmet>
       <Navbar />
+
 
       <main>
         <section className="relative min-h-[80vh] flex items-center pt-32 pb-20 overflow-hidden">
@@ -139,6 +184,20 @@ export default function PersonaPage() {
               <a href="#contact" className="btn-electric inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold">
                 Start a project <ArrowRight className="w-4 h-4" />
               </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-24 bg-background border-t border-white/5">
+          <div className="container mx-auto px-6 max-w-3xl">
+            <h2 className="text-3xl md:text-4xl font-bold mb-10">Frequently asked</h2>
+            <div className="space-y-6">
+              {data.faqs.map((f) => (
+                <div key={f.q} className="glass-effect rounded-2xl p-6">
+                  <h3 className="font-semibold text-lg mb-2">{f.q}</h3>
+                  <p className="text-muted-foreground">{f.a}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
