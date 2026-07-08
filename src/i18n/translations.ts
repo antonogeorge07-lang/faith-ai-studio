@@ -212,6 +212,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'biz.errRateDesc': 'Please wait an hour before trying again.',
     'biz.errGeneric': 'Something went wrong',
     'biz.errGenericDesc': 'Try again in a moment.',
+    'biz.logoBarLabel': 'Trusted by founders and small businesses we have shipped for',
   },
 
   es: {
@@ -408,6 +409,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'biz.rbPreviewSub': 'Esto es lo que enviaríamos primero. Versión completa en tu correo en 24 horas.',
     'biz.rbContinue': 'Continuar y reclamar mi hoja de ruta',
     'biz.rbRestart': 'Empezar de nuevo',
+    'biz.logoBarLabel': 'La confianza de fundadores y pequeños negocios para los que hemos lanzado',
   },
 
   ru: {
@@ -604,6 +606,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'biz.rbPreviewSub': 'Вот что мы отгрузим первым. Полная версия придёт на почту в течение 24 часов.',
     'biz.rbContinue': 'Продолжить и забрать карту',
     'biz.rbRestart': 'Начать заново',
+    'biz.logoBarLabel': 'Нам доверяют основатели и малый бизнес, для которых мы уже запускали',
   },
 
   hu: {
@@ -800,6 +803,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'biz.rbPreviewSub': 'Ezt szállítanánk elsőként. A teljes verzió 24 órán belül az emailedben.',
     'biz.rbContinue': 'Tovább és kérem az ütemtervet',
     'biz.rbRestart': 'Újrakezdés',
+    'biz.logoBarLabel': 'Alapítók és kisvállalkozások bíznak bennünk, akiknek már szállítottunk',
   },
 
   pt: {
@@ -996,6 +1000,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'biz.rbPreviewSub': 'Isto é o que enviaríamos primeiro. Versão completa no seu email em 24 horas.',
     'biz.rbContinue': 'Continuar e receber o roteiro',
     'biz.rbRestart': 'Recomeçar',
+    'biz.logoBarLabel': 'Confiado por fundadores e pequenos negócios para os quais já lançámos',
   },
 
   fr: {
@@ -1192,6 +1197,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'biz.rbPreviewSub': 'Voici ce que nous livrerions en premier. Version complète dans votre boîte sous 24h.',
     'biz.rbContinue': 'Continuer et recevoir ma feuille de route',
     'biz.rbRestart': 'Recommencer',
+    'biz.logoBarLabel': 'La confiance des fondateurs et petites entreprises pour qui nous avons livré',
   },
 
   de: {
@@ -1388,6 +1394,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'biz.rbPreviewSub': 'Das würden wir zuerst liefern. Vollversion in 24 Stunden in Ihrem Postfach.',
     'biz.rbContinue': 'Weiter und Roadmap anfordern',
     'biz.rbRestart': 'Neu starten',
+    'biz.logoBarLabel': 'Vertraut von Gründern und kleinen Unternehmen, für die wir gelauncht haben',
   },
 
   it: {
@@ -1584,6 +1591,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'biz.rbPreviewSub': 'Ecco cosa spediremmo per primo. Versione completa nella tua casella entro 24 ore.',
     'biz.rbContinue': 'Continua e ricevi la roadmap',
     'biz.rbRestart': 'Ricomincia',
+    'biz.logoBarLabel': 'Scelto da fondatori e piccole imprese per cui abbiamo lanciato',
   },
 
   pl: {
@@ -1780,6 +1788,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'biz.rbPreviewSub': 'Oto co wyślemy najpierw. Pełna wersja w skrzynce w ciągu 24 godzin.',
     'biz.rbContinue': 'Kontynuuj i odbierz mapę',
     'biz.rbRestart': 'Zacznij od nowa',
+    'biz.logoBarLabel': 'Zaufali nam założyciele i małe firmy, dla których wdrożyliśmy',
   },
 
   nl: {
@@ -1976,5 +1985,6 @@ export const translations: Record<Language, Record<string, string>> = {
     'biz.rbPreviewSub': 'Dit zouden we eerst leveren. Volledige versie binnen 24 uur in je inbox.',
     'biz.rbContinue': 'Doorgaan en mijn roadmap claimen',
     'biz.rbRestart': 'Opnieuw beginnen',
+    'biz.logoBarLabel': 'Vertrouwd door oprichters en kleine bedrijven waarvoor we hebben gelanceerd',
   },
 };
