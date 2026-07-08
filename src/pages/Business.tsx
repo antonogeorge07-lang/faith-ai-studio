@@ -187,7 +187,7 @@ export default function Business() {
         </div>
       </section>
 
-      <LogoBar label="Trusted by founders and small businesses we have shipped for" />
+      <LogoBar label={t('biz.logoBarLabel')} />
 
       <AILeadFlow />
 
