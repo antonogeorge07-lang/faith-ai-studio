@@ -162,6 +162,38 @@ export function Samples() {
             )
           })}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5 }}
+          className="glass-card rounded-3xl p-8 md:p-10 max-w-4xl mx-auto mt-16 border-t-4 border-accent"
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Technical track
+            </span>
+          </div>
+          <h3 className="text-xl md:text-2xl font-bold text-foreground mb-6 leading-tight">
+            Developer Platform Innovation &amp; AI Automation Track
+          </h3>
+          <ul className="space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed list-disc list-outside pl-5">
+            <li>
+              <strong className="text-foreground">Outcome-Driven Product Innovation:</strong> Conceptualized, engineered, and shipped independent AI-driven product ecosystems: Spark-Agile.com (automated sprint analytics pipelines) and Poly-Linq.com (real-time translation layers for cross-border engineering squads).
+            </li>
+            <li>
+              <strong className="text-foreground">Infrastructure &amp; API Staging:</strong> Designed containerized platform architectures using Docker to parse, validate, and synchronize live JSON streams; configured custom automated telemetry to continuously track API schema health, database performance, and system availability under full local environment control.
+            </li>
+            <li>
+              <strong className="text-foreground">AI-Forward Workflows:</strong> Actively leveraged generative AI tools and prompt memory mechanics to automate manual code-generation steps and optimize product management deployment efficiency.
+            </li>
+            <li>
+              <strong className="text-foreground">The Next Vector (Disposable AI):</strong> Applying these exact local infrastructure architectures, JSON synchronization mechanics, and translation layers to pioneer offline, ultra-low-cost edge AI solutions designed for human elevation.
+            </li>
+          </ul>
+        </motion.div>
       </div>
     </section>
   )
