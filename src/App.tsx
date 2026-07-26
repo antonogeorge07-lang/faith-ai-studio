@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import Index from './pages/Index'
 import Business from './pages/Business'
+import About from './pages/About'
 import Auth from './pages/Auth'
 import AdminConsole from './pages/admin/Console'
 import RequestPortal from './pages/RequestPortal'
@@ -19,6 +20,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Business />} />
         <Route path="/studio" element={<Index />} />
+        <Route path="/about" element={<About />} />
         <Route path="/for/:persona" element={<PersonaPage />} />
         <Route path="/insights" element={<Insights />} />
         <Route path="/insights/:slug" element={<InsightPost />} />
