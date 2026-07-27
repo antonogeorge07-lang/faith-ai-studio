@@ -118,7 +118,7 @@ export default function About() {
             >
               <div className="relative rounded-3xl overflow-hidden border border-border bg-background">
                 <img
-                  src={founderPhoto}
+                  src={founderPhotoAsset.url}
                   alt={t('about.founderPhotoAlt')}
                   className="w-full h-auto object-cover"
                 />
