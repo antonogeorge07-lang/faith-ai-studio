@@ -6,7 +6,7 @@ import { ArrowRight, Check } from 'lucide-react'
 import { Navbar } from '@/components/Navbar'
 import { Seo } from '@/components/Seo'
 import { useLanguage } from '@/i18n/LanguageContext'
-import founderPhoto from '@/assets/antono-george.png'
+import founderPhotoAsset from '@/assets/antono-george.png.asset.json'
 
 export default function About() {
   const navigate = useNavigate()
