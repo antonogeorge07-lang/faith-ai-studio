@@ -5,61 +5,64 @@ import { useNavigate } from 'react-router-dom'
 import { ArrowRight, Check } from 'lucide-react'
 import { Navbar } from '@/components/Navbar'
 import { Seo } from '@/components/Seo'
-
-const credentials = [
-  'Product and platform studio focused on local businesses and lean MVPs',
-  'AI lead handling: capture, qualify, book, hand off',
-  'Websites shipped in days, not quarters',
-  'Own product track: sprint analytics and real-time translation layers',
-  'Local-first infrastructure, no vendor lock-in',
-  'Full handover: you own the accounts, the code and the data',
-]
-
-const stats = [
-  { value: '24h', label: 'from first message to a free roadmap' },
-  { value: '5-7', label: 'days to a live, production-ready site' },
-  { value: '100%', label: 'ownership handed to you at the end' },
-]
-
-const services = [
-  {
-    n: '01',
-    title: 'Strategy & Roadmap',
-    body: 'We map your business, your customers and where leads currently leak. You get a written plan with priorities, scope and timeline before anything is built.',
-    points: ['Business and competitor review', 'Lead-flow audit', 'Prioritised build plan'],
-  },
-  {
-    n: '02',
-    title: 'Website & Platform Build',
-    body: 'A fast, mobile-first site built on a standard stack, structured for local search and wired to your booking, messaging and analytics tools.',
-    points: ['Mobile-first build', 'Local SEO structure', 'Booking and CRM integrations'],
-  },
-  {
-    n: '03',
-    title: 'AI Automation',
-    body: 'Automation that answers after hours: qualifies enquiries, books the job, and hands warm leads to you with the full context attached.',
-    points: ['24/7 lead capture', 'Automatic qualification', 'Warm handoff with context'],
-  },
-]
-
-const process = [
-  { n: '01', title: 'Discovery', body: 'One short call. We learn the business, the customers and the goal.' },
-  { n: '02', title: 'Roadmap', body: 'A free written plan within 24 hours, with scope and sequence.' },
-  { n: '03', title: 'Design', body: 'Look, structure and copy agreed before a line of production code.' },
-  { n: '04', title: 'Build', body: 'Site and automation built in the open, with a preview you can watch.' },
-  { n: '05', title: 'Launch', body: 'Domain, analytics, search console and integrations wired and tested.' },
-  { n: '06', title: 'Handover', body: 'Accounts, docs and access transferred. The work is yours to keep.' },
-]
+import { useLanguage } from '@/i18n/LanguageContext'
+import founderPhoto from '@/assets/antono-george.png'
 
 export default function About() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
   const toContact = () => navigate('/#intake')
+
+  const beliefs = [
+    t('about.belief1'),
+    t('about.belief2'),
+    t('about.belief3'),
+    t('about.belief4'),
+    t('about.belief5'),
+    t('about.belief6'),
+  ]
+
+  const stats = [
+    { value: t('about.stats.24h.value'), label: t('about.stats.24h.label') },
+    { value: t('about.stats.7d.value'), label: t('about.stats.7d.label') },
+    { value: t('about.stats.100.value'), label: t('about.stats.100.label') },
+  ]
+
+  const services = [
+    {
+      n: t('about.service1.n'),
+      title: t('about.service1.title'),
+      body: t('about.service1.body'),
+      points: [t('about.service1.point1'), t('about.service1.point2'), t('about.service1.point3')],
+    },
+    {
+      n: t('about.service2.n'),
+      title: t('about.service2.title'),
+      body: t('about.service2.body'),
+      points: [t('about.service2.point1'), t('about.service2.point2'), t('about.service2.point3')],
+    },
+    {
+      n: t('about.service3.n'),
+      title: t('about.service3.title'),
+      body: t('about.service3.body'),
+      points: [t('about.service3.point1'), t('about.service3.point2'), t('about.service3.point3')],
+    },
+  ]
+
+  const process = [
+    { n: t('about.process1.n'), title: t('about.process1.title'), body: t('about.process1.body') },
+    { n: t('about.process2.n'), title: t('about.process2.title'), body: t('about.process2.body') },
+    { n: t('about.process3.n'), title: t('about.process3.title'), body: t('about.process3.body') },
+    { n: t('about.process4.n'), title: t('about.process4.title'), body: t('about.process4.body') },
+    { n: t('about.process5.n'), title: t('about.process5.title'), body: t('about.process5.body') },
+    { n: t('about.process6.n'), title: t('about.process6.title'), body: t('about.process6.body') },
+  ]
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Seo
-        title="About | Invictus Faith Studio"
-        description="A product studio building websites and AI automation for local businesses. Clear process, fast delivery, full ownership handed back to you."
+        title={t('about.seoTitle')}
+        description={t('about.seoDescription')}
         path="/about"
       />
       <Navbar />
@@ -75,51 +78,86 @@ export default function About() {
               transition={{ duration: 0.6 }}
               className="max-w-4xl"
             >
-              <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">About the studio</span>
+              <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">{t('about.heroLabel')}</span>
               <h1
                 className="font-bold leading-[1.03] tracking-tight mt-6"
                 style={{ fontSize: 'clamp(2.5rem, 7vw, 5.5rem)' }}
               >
-                We build the system that <span className="text-accent">wins the work</span> while you do the work.
+                {t('about.heroHeadline')}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mt-8 max-w-2xl">
-                Invictus Faith Studio is a small product studio. We ship websites and AI automation for local
-                businesses and early founders, then hand the whole thing over. No retainers you cannot leave, no
-                platforms you cannot export.
+                {t('about.heroSubtext')}
               </p>
               <div className="flex flex-wrap gap-4 mt-10">
                 <button
                   onClick={toContact}
                   className="btn-electric inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-base font-semibold"
                 >
-                  Get your free roadmap <ArrowRight className="w-5 h-5" />
+                  {t('about.ctaPrimary')} <ArrowRight className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => navigate('/studio')}
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-base font-semibold border border-border hover:border-accent transition-colors"
                 >
-                  See the work
+                  {t('about.ctaSecondary')}
                 </button>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Credentials */}
+        {/* Founder statement */}
         <section className="py-20 bg-secondary">
+          <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative"
+            >
+              <div className="relative rounded-3xl overflow-hidden border border-border bg-background">
+                <img
+                  src={founderPhoto}
+                  alt={t('about.founderPhotoAlt')}
+                  className="w-full h-auto object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent pointer-events-none" />
+              </div>
+              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-2xl pointer-events-none" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">{t('about.founderLabel')}</span>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">
+                {t('about.founderTitle')}
+              </h2>
+              <p className="text-muted-foreground mt-6 text-lg leading-relaxed">
+                {t('about.founderBody')}
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Beliefs */}
+        <section className="py-20 border-y border-border">
           <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">What we are</span>
+              <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">{t('about.beliefsLabel')}</span>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">
-                Engineering discipline, studio speed
+                {t('about.beliefsTitle')}
               </h2>
               <p className="text-muted-foreground mt-6 max-w-lg">
-                Every project runs on the same standard stack and the same written process, so the result is
-                predictable and anyone can maintain it after us.
+                {t('about.beliefsBody')}
               </p>
             </div>
             <ul className="space-y-4">
-              {credentials.map((c) => (
+              {beliefs.map((c) => (
                 <li key={c} className="flex gap-3 items-start">
                   <Check className="w-5 h-5 text-accent shrink-0 mt-1" />
                   <span className="text-base">{c}</span>
@@ -130,7 +168,7 @@ export default function About() {
         </section>
 
         {/* Stats */}
-        <section className="py-20 border-y border-border">
+        <section className="py-20">
           <div className="container mx-auto px-6 grid sm:grid-cols-3 gap-10">
             {stats.map((s) => (
               <div key={s.label} className="text-center">
@@ -142,11 +180,11 @@ export default function About() {
         </section>
 
         {/* Services */}
-        <section className="py-24">
+        <section className="py-24 bg-secondary">
           <div className="container mx-auto px-6">
             <div className="max-w-2xl mb-14">
-              <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">What we do</span>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">Three things, done properly</h2>
+              <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">{t('about.servicesLabel')}</span>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">{t('about.servicesTitle')}</h2>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {services.map((s, i) => (
@@ -177,11 +215,11 @@ export default function About() {
         </section>
 
         {/* Process */}
-        <section className="py-24 bg-secondary">
+        <section className="py-24">
           <div className="container mx-auto px-6">
             <div className="max-w-2xl mb-14">
-              <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">How we work</span>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">From first call to handover in six steps</h2>
+              <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">{t('about.processLabel')}</span>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">{t('about.processTitle')}</h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {process.map((p, i) => (
@@ -205,16 +243,15 @@ export default function About() {
         {/* CTA */}
         <section className="py-24 bg-primary text-primary-foreground">
           <div className="container mx-auto px-6 text-center max-w-2xl">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Tell us about your business</h2>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight">{t('about.ctaTitle')}</h2>
             <p className="text-primary-foreground/80 mt-6 text-lg">
-              Send a few lines about what you do. You get a written roadmap back within 24 hours, free, with no
-              obligation to build anything with us.
+              {t('about.ctaBody')}
             </p>
             <button
               onClick={toContact}
               className="btn-electric inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-base font-semibold mt-10"
             >
-              Start free <ArrowRight className="w-5 h-5" />
+              {t('about.ctaPrimary')} <ArrowRight className="w-5 h-5" />
             </button>
           </div>
         </section>
