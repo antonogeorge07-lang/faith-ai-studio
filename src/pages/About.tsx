@@ -116,15 +116,17 @@ export default function About() {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <div className="relative rounded-3xl overflow-hidden border border-border bg-background">
-                <img
-                  src={founderPhotoAsset.url}
-                  alt={t('about.founderPhotoAlt')}
-                  className="w-full h-auto object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent pointer-events-none" />
+              <div className="relative rounded-3xl p-10 md:p-14 border border-border bg-background overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-accent" />
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="relative z-10">
+                  <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">{t('about.founderLabel')}</span>
+                  <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">
+                    {t('about.founderTitle')}
+                  </h2>
+                </div>
               </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-2xl pointer-events-none" />
             </motion.div>
 
             <motion.div
@@ -133,11 +135,7 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent">{t('about.founderLabel')}</span>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">
-                {t('about.founderTitle')}
-              </h2>
-              <p className="text-muted-foreground mt-6 text-lg leading-relaxed">
+              <p className="text-muted-foreground text-lg leading-relaxed">
                 {t('about.founderBody')}
               </p>
             </motion.div>
