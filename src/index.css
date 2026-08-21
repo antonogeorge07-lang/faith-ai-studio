@@ -310,3 +310,39 @@ html {
     font-size: 2rem;
   }
 }
+
+/* CSS-driven marquee (compositor only, no JS per frame) */
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-track {
+  width: max-content;
+  animation: marquee-x 40s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* Touch / responsiveness hardening */
+@media (max-width: 1024px) {
+  /* Large blurred decorations are expensive to paint on mobile GPUs */
+  .blur-\[120px\], .blur-\[140px\], .blur-\[100px\] {
+    filter: blur(60px);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  button, a[role="button"], .btn-electric {
+    min-height: 44px;
+  }
+
+  /* Hover-only transforms should not stick after a tap */
+  .btn-electric:hover,
+  .glow-green-hover:hover {
+    transform: none;
+  }
+}
