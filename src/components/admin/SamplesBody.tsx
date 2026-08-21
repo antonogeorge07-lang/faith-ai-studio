@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/integrations/supabase/client'
-import { Plus, Trash2, ExternalLink, Eye, EyeOff, Save, X } from 'lucide-react'
+import { Plus, Trash2, ExternalLink, Eye, EyeOff, Save, X, Upload } from 'lucide-react'
 import { toast } from 'sonner'
 
 type Category = 'design' | 'platform' | 'launch'
