@@ -83,6 +83,7 @@ export function SamplesBody() {
 
   const reset = () => {
     setForm({ name: '', url: '', tag: '', category: 'platform', image_url: '' })
+    setUploadedUrl('')
     setShowForm(false)
   }
 
@@ -105,9 +106,10 @@ export function SamplesBody() {
       url: form.url.trim(),
       tag: form.tag.trim() || null,
       category: form.category,
-      image_url: form.image_url.trim() || null,
+      image_url: form.image_url.trim() || uploadedUrl || null,
       created_by: user?.id ?? null,
     })
+
     setSaving(false)
     if (error) { toast.error(error.message); return }
     toast.success('Added to Studio showcase')
