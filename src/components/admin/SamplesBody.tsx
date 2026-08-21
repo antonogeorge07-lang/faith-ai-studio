@@ -51,7 +51,7 @@ export function SamplesBody() {
     }
     setUploading(true)
     const ext = file.name.split('.').pop()?.toLowerCase() || 'png'
-    const path = `${crypto.randomUUID()}.${ext}`
+    const path = `public/${crypto.randomUUID()}.${ext}`
     const { error } = await supabase.storage.from('showcase').upload(path, file, {
       contentType: file.type,
       upsert: false,
