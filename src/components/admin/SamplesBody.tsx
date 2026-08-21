@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/integrations/supabase/client'
-import { Plus, Trash2, ExternalLink, Eye, EyeOff, Save, X } from 'lucide-react'
+import { Plus, Trash2, ExternalLink, Eye, EyeOff, Save, X, Upload } from 'lucide-react'
 import { toast } from 'sonner'
 
 type Category = 'design' | 'platform' | 'launch'
@@ -21,11 +21,16 @@ type Sample = {
 
 const CATEGORIES: Category[] = ['design', 'platform', 'launch']
 
+const ACCEPT = 'image/png,image/jpeg,image/jpg,image/webp,image/svg+xml'
+const TEN_YEARS = 60 * 60 * 24 * 365 * 10
+
 export function SamplesBody() {
   const [items, setItems] = useState<Sample[]>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [uploadedUrl, setUploadedUrl] = useState('')
   const [form, setForm] = useState({
     name: '',
     url: '',
@@ -33,6 +38,34 @@ export function SamplesBody() {
     category: 'platform' as Category,
     image_url: '',
   })
+
+  const handleUpload = async (file: File | undefined) => {
+    if (!file) return
+    if (!ACCEPT.split(',').includes(file.type)) {
+      toast.error('Allowed formats: PNG, JPG, JPEG, WebP, SVG')
+      return
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image must be under 5MB')
+      return
+    }
+    setUploading(true)
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'png'
+    const path = `${crypto.randomUUID()}.${ext}`
+    const { error } = await supabase.storage.from('showcase').upload(path, file, {
+      contentType: file.type,
+      upsert: false,
+    })
+    if (error) { setUploading(false); toast.error(error.message); return }
+    const { data, error: signErr } = await supabase.storage
+      .from('showcase')
+      .createSignedUrl(path, TEN_YEARS)
+    setUploading(false)
+    if (signErr || !data?.signedUrl) { toast.error(signErr?.message || 'Could not get image URL'); return }
+    setUploadedUrl(data.signedUrl)
+    toast.success('Image uploaded')
+  }
+
 
   const load = async () => {
     setLoading(true)
@@ -50,6 +83,7 @@ export function SamplesBody() {
 
   const reset = () => {
     setForm({ name: '', url: '', tag: '', category: 'platform', image_url: '' })
+    setUploadedUrl('')
     setShowForm(false)
   }
 
@@ -72,9 +106,10 @@ export function SamplesBody() {
       url: form.url.trim(),
       tag: form.tag.trim() || null,
       category: form.category,
-      image_url: form.image_url.trim() || null,
+      image_url: form.image_url.trim() || uploadedUrl || null,
       created_by: user?.id ?? null,
     })
+
     setSaving(false)
     if (error) { toast.error(error.message); return }
     toast.success('Added to Studio showcase')
@@ -169,6 +204,33 @@ export function SamplesBody() {
                 className="input"
               />
             </Field>
+            <Field label="Or upload an image (optional)" full>
+              <div className="flex items-center gap-3 flex-wrap">
+                <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-primary-foreground/80 hover:text-primary-foreground text-sm cursor-pointer">
+                  <Upload className="w-4 h-4" />
+                  {uploading ? 'Uploading...' : uploadedUrl ? 'Replace image' : 'Upload image'}
+                  <input
+                    type="file"
+                    accept={ACCEPT}
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={e => { handleUpload(e.target.files?.[0]); e.target.value = '' }}
+                  />
+                </label>
+                {uploadedUrl && (
+                  <div className="flex items-center gap-2">
+                    <img src={uploadedUrl} alt="Uploaded preview"
+                      className="w-16 h-12 object-cover rounded-lg border border-white/10" />
+                    <button type="button" onClick={() => setUploadedUrl('')}
+                      className="p-2 rounded-lg text-primary-foreground/60 hover:text-destructive hover:bg-destructive/10">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+                <span className="text-[11px] text-primary-foreground/40">PNG, JPG, JPEG, WebP, SVG</span>
+              </div>
+            </Field>
+
           </div>
           <div className="flex items-center justify-end gap-2 pt-2">
             <button type="button" onClick={reset}
