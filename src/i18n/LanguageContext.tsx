@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Language, translations } from './translations';
+import { Language, translations, loadLocale } from './translations';
 
 type LanguageContextType = {
   language: Language;
@@ -20,7 +20,7 @@ const getSavedLanguage = (): Language => {
 };
 
 const translate = (language: Language, key: string, vars?: Record<string, string>): string => {
-  const raw = translations[language][key] ?? translations.en[key] ?? key;
+  const raw = translations[language]?.[key] ?? translations.en?.[key] ?? key;
   if (!vars) return raw;
   return Object.keys(vars).reduce((acc, k) => acc.split(`{{${k}}}`).join(vars[k]), raw);
 };
@@ -43,6 +43,16 @@ globalThis.__invictusLanguageContext = LanguageContext;
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(getSavedLanguage);
+
+  const [, setLocaleVersion] = useState(0);
+
+  useEffect(() => {
+    let alive = true;
+    if (!translations[language]) {
+      loadLocale(language).then(() => { if (alive) setLocaleVersion((v) => v + 1); });
+    }
+    return () => { alive = false };
+  }, [language]);
 
   useEffect(() => {
     document.documentElement.lang = language;

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+/* Fonts are loaded via <link> in index.html (non-blocking). */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,14 +98,36 @@
     @apply border-border;
   }
 
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overscroll-behavior-y: none;
+  }
+
   body {
     @apply bg-background text-foreground overflow-x-hidden;
     font-family: 'Poppins', sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     width: 100%;
     max-width: 100vw;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
   }
-  
+
+  /* Snappier taps on touch devices */
+  a, button, [role="button"], input, select, textarea, label {
+    touch-action: manipulation;
+  }
+
+  img, video, canvas, svg {
+    max-width: 100%;
+  }
+
+  img {
+    height: auto;
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -114,6 +136,7 @@
     max-width: 100%;
     overflow-x: hidden;
   }
+
   
   /* Electric Green Glow Effect */
   .glow-green {
@@ -285,5 +308,41 @@ html {
   
   h2 {
     font-size: 2rem;
+  }
+}
+
+/* CSS-driven marquee (compositor only, no JS per frame) */
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-track {
+  width: max-content;
+  animation: marquee-x 40s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* Touch / responsiveness hardening */
+@media (max-width: 1024px) {
+  /* Large blurred decorations are expensive to paint on mobile GPUs */
+  .blur-\[120px\], .blur-\[140px\], .blur-\[100px\] {
+    filter: blur(60px);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  button, a[role="button"], .btn-electric {
+    min-height: 44px;
+  }
+
+  /* Hover-only transforms should not stick after a tap */
+  .btn-electric:hover,
+  .glow-green-hover:hover {
+    transform: none;
   }
 }

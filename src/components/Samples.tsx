@@ -140,8 +140,12 @@ export function Samples() {
                     src={screenshot}
                     alt={`${s.name} website preview`}
                     loading="lazy"
+                    decoding="async"
+                    width={800}
+                    height={600}
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
+
                   <span className="absolute top-3 left-3 text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-full bg-background/80 backdrop-blur text-accent border border-accent/30">
                     {s.category}
                   </span>
