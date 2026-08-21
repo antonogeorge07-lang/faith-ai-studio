@@ -21,11 +21,16 @@ type Sample = {
 
 const CATEGORIES: Category[] = ['design', 'platform', 'launch']
 
+const ACCEPT = 'image/png,image/jpeg,image/jpg,image/webp,image/svg+xml'
+const TEN_YEARS = 60 * 60 * 24 * 365 * 10
+
 export function SamplesBody() {
   const [items, setItems] = useState<Sample[]>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [uploadedUrl, setUploadedUrl] = useState('')
   const [form, setForm] = useState({
     name: '',
     url: '',
@@ -33,6 +38,34 @@ export function SamplesBody() {
     category: 'platform' as Category,
     image_url: '',
   })
+
+  const handleUpload = async (file: File | undefined) => {
+    if (!file) return
+    if (!ACCEPT.split(',').includes(file.type)) {
+      toast.error('Allowed formats: PNG, JPG, JPEG, WebP, SVG')
+      return
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image must be under 5MB')
+      return
+    }
+    setUploading(true)
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'png'
+    const path = `${crypto.randomUUID()}.${ext}`
+    const { error } = await supabase.storage.from('showcase').upload(path, file, {
+      contentType: file.type,
+      upsert: false,
+    })
+    if (error) { setUploading(false); toast.error(error.message); return }
+    const { data, error: signErr } = await supabase.storage
+      .from('showcase')
+      .createSignedUrl(path, TEN_YEARS)
+    setUploading(false)
+    if (signErr || !data?.signedUrl) { toast.error(signErr?.message || 'Could not get image URL'); return }
+    setUploadedUrl(data.signedUrl)
+    toast.success('Image uploaded')
+  }
+
 
   const load = async () => {
     setLoading(true)
