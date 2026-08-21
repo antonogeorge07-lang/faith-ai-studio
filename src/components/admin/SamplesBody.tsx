@@ -204,6 +204,33 @@ export function SamplesBody() {
                 className="input"
               />
             </Field>
+            <Field label="Or upload an image (optional)" full>
+              <div className="flex items-center gap-3 flex-wrap">
+                <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-primary-foreground/80 hover:text-primary-foreground text-sm cursor-pointer">
+                  <Upload className="w-4 h-4" />
+                  {uploading ? 'Uploading...' : uploadedUrl ? 'Replace image' : 'Upload image'}
+                  <input
+                    type="file"
+                    accept={ACCEPT}
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={e => { handleUpload(e.target.files?.[0]); e.target.value = '' }}
+                  />
+                </label>
+                {uploadedUrl && (
+                  <div className="flex items-center gap-2">
+                    <img src={uploadedUrl} alt="Uploaded preview"
+                      className="w-16 h-12 object-cover rounded-lg border border-white/10" />
+                    <button type="button" onClick={() => setUploadedUrl('')}
+                      className="p-2 rounded-lg text-primary-foreground/60 hover:text-destructive hover:bg-destructive/10">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+                <span className="text-[11px] text-primary-foreground/40">PNG, JPG, JPEG, WebP, SVG</span>
+              </div>
+            </Field>
+
           </div>
           <div className="flex items-center justify-end gap-2 pt-2">
             <button type="button" onClick={reset}
