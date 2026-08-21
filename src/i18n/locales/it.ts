@@ -262,8 +262,6 @@ const it: Record<string, string> = {
     'biz.rbContinue': 'Continua e ricevi la roadmap',
     'biz.rbRestart': 'Ricomincia',
     'biz.logoBarLabel': 'Scelto da fondatori e piccole imprese per cui abbiamo lanciato',
-  },
-
 };
 
 export default it;

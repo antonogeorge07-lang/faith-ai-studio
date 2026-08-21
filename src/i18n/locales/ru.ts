@@ -262,8 +262,6 @@ const ru: Record<string, string> = {
     'biz.rbContinue': 'Продолжить и забрать карту',
     'biz.rbRestart': 'Начать заново',
     'biz.logoBarLabel': 'Нам доверяют основатели и малый бизнес, для которых мы уже запускали',
-  },
-
 };
 
 export default ru;

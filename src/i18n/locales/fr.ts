@@ -262,8 +262,6 @@ const fr: Record<string, string> = {
     'biz.rbContinue': 'Continuer et recevoir ma feuille de route',
     'biz.rbRestart': 'Recommencer',
     'biz.logoBarLabel': 'La confiance des fondateurs et petites entreprises pour qui nous avons livré',
-  },
-
 };
 
 export default fr;

@@ -262,8 +262,6 @@ const de: Record<string, string> = {
     'biz.rbContinue': 'Weiter und Roadmap anfordern',
     'biz.rbRestart': 'Neu starten',
     'biz.logoBarLabel': 'Vertraut von Gründern und kleinen Unternehmen, für die wir gelauncht haben',
-  },
-
 };
 
 export default de;

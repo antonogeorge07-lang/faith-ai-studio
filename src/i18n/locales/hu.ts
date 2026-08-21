@@ -262,8 +262,6 @@ const hu: Record<string, string> = {
     'biz.rbContinue': 'Tovább és kérem az ütemtervet',
     'biz.rbRestart': 'Újrakezdés',
     'biz.logoBarLabel': 'Alapítók és kisvállalkozások bíznak bennünk, akiknek már szállítottunk',
-  },
-
 };
 
 export default hu;

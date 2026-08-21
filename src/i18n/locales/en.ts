@@ -262,8 +262,6 @@ const en: Record<string, string> = {
     'biz.errGeneric': 'Something went wrong',
     'biz.errGenericDesc': 'Try again in a moment.',
     'biz.logoBarLabel': 'Trusted by founders and small businesses we have shipped for',
-  },
-
 };
 
 export default en;

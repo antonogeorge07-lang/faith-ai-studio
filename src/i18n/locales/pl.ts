@@ -262,8 +262,6 @@ const pl: Record<string, string> = {
     'biz.rbContinue': 'Kontynuuj i odbierz mapę',
     'biz.rbRestart': 'Zacznij od nowa',
     'biz.logoBarLabel': 'Zaufali nam założyciele i małe firmy, dla których wdrożyliśmy',
-  },
-
 };
 
 export default pl;
