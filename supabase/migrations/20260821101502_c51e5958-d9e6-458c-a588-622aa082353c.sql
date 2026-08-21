@@ -1,0 +1,4 @@
+CREATE POLICY "showcase images are viewable" ON storage.objects FOR SELECT USING (bucket_id = 'showcase');
+CREATE POLICY "staff can upload showcase images" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'showcase' AND (public.has_role(auth.uid(),'admin') OR public.has_role(auth.uid(),'owner') OR public.has_role(auth.uid(),'designer')));
+CREATE POLICY "staff can update showcase images" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id = 'showcase' AND (public.has_role(auth.uid(),'admin') OR public.has_role(auth.uid(),'owner') OR public.has_role(auth.uid(),'designer')));
+CREATE POLICY "staff can delete showcase images" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'showcase' AND (public.has_role(auth.uid(),'admin') OR public.has_role(auth.uid(),'owner') OR public.has_role(auth.uid(),'designer')));
