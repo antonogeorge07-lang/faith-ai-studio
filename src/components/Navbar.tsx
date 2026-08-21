@@ -35,10 +35,27 @@ export function Navbar() {
   const ctaHref = isStudio ? '#contact' : '#intake'
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
+    let ticking = false
+    const handleScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50)
+        ticking = false
+      })
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Prevent background scroll behind the mobile menu overlay
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = prev }
+  }, [isMobileMenuOpen])
+
 
   const go = (href: string, isRoute?: boolean) => {
     setIsMobileMenuOpen(false)
